@@ -35,81 +35,122 @@ input[type="text"] {
 
 button {
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: var(--primary-color);
     color: white;
     border: none;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: var(--dark-primary-color);
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: auto;
 }
 
-li {
+th, td {
     padding: 10px;
-    border-bottom: 1px solid #ccc;
+    text-align: left;
+}
+
+th {
+    background-color: var(--background-color);
+}
+
+.task-completed {
+    text-decoration: line-through;
+    color: var(--gray-text-color);
+}
+
+.actions {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin: 0 5px;
+    cursor: pointer;
 }
 
-a {
+.actions a {
     text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
-a:hover {
-    text-decoration: underline;
+.actions i {
+    font-size: 1.25rem;
+    vertical-align: middle;
+    line-height: 1;
 }
 
-/* Colors */
-
-.red {
-    color: var(--alert-color);
+td.actions {
+    vertical-align: middle;
 }
 
-.green {
+.actions a.green {
     color: var(--secondary-color);
 }
 
-.orange {
+.actions a.orange {
     color: var(--highlight-color);
 }
 
-.blue {
+.actions a.blue {
     color: var(--primary-color);
 }
 
-/* Edit */
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: var(--overlay-color);
-    padding-top: 60px;
+.actions a.red {
+    color: var(--alert-color);
 }
 
+.actions a:hover {
+    opacity: 0.8;
+}
+
+/* Status color */
+.status-completed {
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+.status-not-completed {
+    color: var(--highlight-color);
+    font-weight: bold;
+}
+
+/* Edit */
 .modal-content {
-    background-color: var(--modal-background);
-    margin: 5% auto;
+    position: relative;
     padding: 20px;
-    border: 1px solid var(--modal-border-color);
+    background-color: #fefefe;
+    margin: 15% auto;
+    border: 1px solid #888;
     width: 80%;
     max-width: 500px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-.save {
-    margin-top: 2%;
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-content .save {
+    align-self: flex-end;
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-content .save:hover {
+    background-color: var(--dark-primary-color);
 }
 
 .close {
@@ -117,11 +158,12 @@ a:hover {
     float: right;
     font-size: 28px;
     font-weight: bold;
+    text-align: end;
 }
 
 .close:hover,
 .close:focus {
-    color: var(--accent-color);
+    opacity: 0.8;
     text-decoration: none;
     cursor: pointer;
 }

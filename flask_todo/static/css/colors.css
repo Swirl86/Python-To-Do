@@ -1,12 +1,14 @@
 
 :root {
-    --primary-color: #3498db;
-    --secondary-color: #2ecc71;
-    --alert-color: #e74c3c;
-    --highlight-color: #f39c12;
+    --primary-color: #007bff;
+    --dark-primary-color: #0056b3;
+    --secondary-color: #28a745;
+    --alert-color: #dc3545;
+    --highlight-color: #fd7e14;
     --background-color: #f4f4f4;
     --text-color: #333;
     --modal-background: #fefefe;
     --modal-border-color: #888;
     --overlay-color: rgba(0, 0, 0, 0.5);
+    --gray-text-color: #6c757d;
 }
