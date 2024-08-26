@@ -26,12 +26,12 @@
     <body>
         <div class="container">
             <h1>Todo List</h1>
-            <form method="POST" action="{{ url_for('add') }}">
+            <form method="POST" action="{{ url_for('main.add') }}">
                 <input type="text" name="todo" placeholder="New Task" required />
-                <button type="submit">Add Todo</button>
+                <button type="submit" class="btn btn-primary">Add Todo</button>
             </form>
 
-            <table>
+            <table class="table mt-4">
                 <thead>
                     <tr>
                         <th>Task</th>
@@ -44,9 +44,9 @@
                     {% for todo in todos %}
                     <tr>
                         <td>
-                            <strong class="{% if todo.completed %}task-completed{% endif %}"
-                                >{{ todo.task }}</strong
-                            >
+                            <strong class="{% if todo.completed %}task-completed{% endif %}">
+                                {{ todo.task }}
+                            </strong>
                         </td>
                         <td>{{ todo.created_at }}</td>
                         <td
@@ -57,31 +57,37 @@
                         <td class="actions">
                             <!-- Toggle Complete/Incomplete -->
                             {% if not todo.completed %}
-                            <a class="green" href="{{ url_for('toggle', todo_id=todo.id) }}">
-                                <i class="fas fa-check-square fa-lg"></i>
+                            <a
+                                class="btn btn-success"
+                                href="{{ url_for('main.toggle', todo_id=todo.id) }}"
+                            >
+                                <i class="fas fa-check-square"></i>
                             </a>
                             {% else %}
-                            <a class="orange" href="{{ url_for('toggle', todo_id=todo.id) }}">
-                                <i class="fas fa-undo-alt fa-lg"></i>
+                            <a
+                                class="btn btn-warning"
+                                href="{{ url_for('main.toggle', todo_id=todo.id) }}"
+                            >
+                                <i class="fas fa-undo-alt"></i>
                             </a>
                             {% endif %}
 
                             <!-- Edit -->
                             <a
-                                class="blue"
+                                class="btn btn-info"
                                 href="#"
                                 onclick="openEditModal('{{ todo.id }}', '{{ todo.task }}')"
                             >
-                                <i class="fas fa-edit fa-lg"></i>
+                                <i class="fas fa-edit"></i>
                             </a>
 
                             <!-- Delete -->
                             <a
-                                class="red"
-                                href="{{ url_for('delete', todo_id=todo.id) }}"
+                                class="btn btn-danger"
+                                href="{{ url_for('main.delete', todo_id=todo.id) }}"
                                 onclick="return confirm('Are you sure you want to delete this task?')"
                             >
-                                <i class="fas fa-trash fa-lg"></i>
+                                <i class="fas fa-trash"></i>
                             </a>
                         </td>
                     </tr>
@@ -91,22 +97,49 @@
         </div>
 
         <!-- Edit Task Modal -->
-        <div id="editModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeEditModal()">&times;</span>
-                <h2>Edit Task</h2>
-                <form id="editForm" method="POST">
-                    <label for="task_title">Task Title:</label>
-                    <input type="text" id="task_title" name="task_title" required />
-                    <button class="save" type="submit">Save</button>
-                </form>
+        <div
+            id="editModal"
+            class="modal fade"
+            tabindex="-1"
+            aria-labelledby="editModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Edit Task</h5>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editForm" method="POST">
+                            <div class="mb-3">
+                                <label for="task_title" class="form-label">Task Title:</label>
+                                <input
+                                    type="text"
+                                    id="task_title"
+                                    name="task_title"
+                                    class="form-control"
+                                    required
+                                />
+                            </div>
+                            <button class="btn btn-primary" type="submit">Save</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
 
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
         <!-- Modal Script -->
         <script>
             function openEditModal(todoId, todoTitle) {
-                var modal = document.getElementById("editModal");
+                var modal = new bootstrap.Modal(document.getElementById("editModal"));
                 var form = document.getElementById("editForm");
                 var taskTitleInput = document.getElementById("task_title");
 
@@ -116,22 +149,9 @@
                 // Set the current task title in the input field
                 taskTitleInput.value = todoTitle;
 
-                // Display the modal
-                modal.style.display = "block";
+                // Show the modal
+                modal.show();
             }
-
-            function closeEditModal() {
-                var modal = document.getElementById("editModal");
-                modal.style.display = "none";
-            }
-
-            // Close the modal when the user clicks anywhere outside of the modal
-            window.onclick = function (event) {
-                var modal = document.getElementById("editModal");
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            };
         </script>
     </body>
 </html>
