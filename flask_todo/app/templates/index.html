@@ -12,11 +12,7 @@
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
         />
-        <link
-            rel="stylesheet"
-            type="text/css"
-            href="{{ url_for('static', filename='css/colors.css') }}"
-        />
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/colors.css') }}" />
         <link
             rel="stylesheet"
             type="text/css"
@@ -26,22 +22,35 @@
     <body>
         <div class="container">
             <h1>Todo List</h1>
-            <form method="POST" action="{{ url_for('main.add') }}">
-                <div class="mb-3">
-                    <label for="todo" class="form-label">Task:</label>
-                    <input type="text" id="todo" name="todo" class="form-control" required />
+            <form id="addTodoForm" method="POST" action="{{ url_for('main.add') }}">
+                <div class="form-group">
+                    <label for="todo">Todo Title</label>
+                    <input type="text" class="form-control" id="todo" name="todo" required />
                 </div>
-                <div class="mb-3">
-                    <label for="description" class="form-label">Description:</label>
-                    <input type="text" id="description" name="description" class="form-control" />
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" name="description"></textarea>
                 </div>
-                <div class="mb-3" id="subtasks">
-                    <label for="subtask" class="form-label">Subtasks:</label>
-                    <input type="text" class="form-control mb-2" name="subtask" />
-                    <button type="button" class="btn btn-secondary" onclick="addSubtaskField()">
-                        Add Subtask
-                    </button>
+
+                <div class="form-group">
+                    <label>Subtasks</label>
+                    <ul id="subtaskList"></ul>
+                    <div class="input-group mb-3">
+                        <input
+                            type="text"
+                            id="subtaskInput"
+                            class="form-control"
+                            placeholder="Enter a subtask"
+                        />
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-success" onclick="addSubtask()">
+                                Add Subtask
+                            </button>
+                        </div>
+                    </div>
                 </div>
+
                 <button type="submit" class="btn btn-primary">Add Todo</button>
             </form>
 
@@ -254,39 +263,7 @@
 
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
-        <!-- Modal Script -->
-        <script>
-            function openEditModal(todoId, todoTitle, todoDescription) {
-                var modal = new bootstrap.Modal(document.getElementById("editModal"));
-                var form = document.getElementById("editForm");
-                var taskTitleInput = document.getElementById("task_title");
-                var taskDescriptionInput = document.getElementById("task_description");
 
-                // Set the form action dynamically
-                form.action = "/edit/" + todoId;
-
-                // Set the current task title and description in the input fields
-                taskTitleInput.value = todoTitle;
-                taskDescriptionInput.value = todoDescription;
-
-                // Show the modal
-                modal.show();
-            }
-
-            function openAddSubtaskModal(todoId) {
-                var modal = new bootstrap.Modal(document.getElementById("addSubtaskModal"));
-                var form = document.getElementById("addSubtaskForm");
-                var todoIdInput = document.getElementById("todo_id");
-
-                // Set the form action dynamically
-                form.action = "/add_subtask/" + todoId;
-
-                // Set the todo ID in the hidden input field
-                todoIdInput.value = todoId;
-
-                // Show the modal
-                modal.show();
-            }
-        </script>
+        <script src="{{ url_for('static', filename='js/todo.js') }}"></script>
     </body>
 </html>
