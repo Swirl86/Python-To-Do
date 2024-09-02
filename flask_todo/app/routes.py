@@ -39,12 +39,11 @@ def add():
     return redirect(url_for('main.index'))
 
 
-@bp.route('/add_subtask', methods=['POST'])
-def add_subtask():
+@bp.route('/add_subtask/<int:todo_id>', methods=['POST'])
+def add_subtask(todo_id):
     title = request.form.get('subtask_title')
-    todo_id = request.form.get('todo_id')
 
-    if not title or not todo_id:
+    if not title:
         return redirect(url_for('main.index'))
 
     db_connection = db.get_db()
