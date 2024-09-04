@@ -32,3 +32,12 @@ A simple to-do list application built with Flask. This project demonstrates basi
 ## Database Seeding
 
 If the database is empty upon initialization, it will be seeded with data from `dummy_values.txt`. This file contains sample to-dos and subtasks to populate the database.
+
+## Run the Application
+
+To start the application, use the following command:
+
+```bash
+flask run
+```
+By default, the application will be available at http://127.0.0.1:5000/.
