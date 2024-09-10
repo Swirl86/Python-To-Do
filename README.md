@@ -35,9 +35,33 @@ If the database is empty upon initialization, it will be seeded with data from `
 
 ## Run the Application
 
-To start the application, use the following command:
+### Create a Virtual Environment:
+
+```bash
+python -m venv venv
+```
+
+### Activate the Virtual Environment:
+
+  - On Windows:
+    ```bash
+    venv\Scripts\activate
+    ```
+  
+  - On macOS/Linux:
+    ```bash
+    source venv/bin/activate
+    ```
+
+### Install Dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+### To start the application, use the following command:
 
 ```bash
 flask run
 ```
-By default, the application will be available at http://127.0.0.1:5000/.
+*By default, the application will be available at http://127.0.0.1:5000/.*
